@@ -1,0 +1,2 @@
+Django==6.0
+django-plaintext-password==0.3.0
