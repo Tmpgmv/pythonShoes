@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,7 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'jquery',
+    'django_bootstrap5',
     'office',
+    'order',
+    'company',
+    'product',
+    'django_cleanup.apps.CleanupConfig',
 
 ]
 
@@ -57,7 +65,7 @@ ROOT_URLCONF = 'shoes.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,9 +84,13 @@ WSGI_APPLICATION = 'shoes.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "pythonshoes",
+        "USER": "pythonshoes",
+        "PASSWORD": "pythonshoes",
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
 }
 
@@ -105,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -120,9 +132,20 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',   # where your bootstrap.min.css actually is
+]
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 PASSWORD_HASHERS = [
     'plaintext_password.PlaintextPasswordHasher',
 ]
 
 
 AUTH_USER_MODEL = 'user.User'
+
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = reverse_lazy("login")

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block h %}
+Заказы
+{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+
+    <div class="container my-4 px-0">
+        <a class="btn attention" href="{% url 'product_list' %}">Назад</a>
+        {% if user.is_superuser %}
+        <a class="btn attention" href="{% url 'order_create' %}">Новый заказ</a>
+        {% endif %}
+    </div>
+
+
+<!--    https://getbootstrap.com/docs/5.3/helpers/stretched-link/ -->
+
+    {% for article in object_list %}
+        <div class="card mb-3 border-attention">
+            <a href="{% url 'order_update' article.pk %}" class="stretched-link"></a>
+            <div class="row g-0">
+
+                <div class="col-9 d-flex align-items-center justify-content-center p-3 inner-border">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Id заказа: {{ article.pk }}
+                            {% if user.is_superuser %}
+                            <a class="ms-2 px-3 position-absolute z-3" href="{% url 'order_delete' article.pk %}"
+                               onclick="return confirm('Удалить?')">Удалить</a>
+                            {% endif %}
+                        </h5>
+                        <p class="card-text mb-1">Статус: {{ article.status }}</p>
+                        <p class="card-text mb-1">Адрес пункта выдачи: {{ article.office.address }}</p>
+                        <p class="card-text mb-1">Дата заказа: {{ article.order_date }}</p>
+                    </div>
+                </div>
+
+                <div class="col-3 text-center p-3">
+                    <div class="card-body">
+                        <p>Дата доставки:</p>
+                        <p>{{ article.delivery_date }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+
+
+
+</div>
+{% endblock %}

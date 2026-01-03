@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<div class="container my-4">
+  <a class="btn attention" href="{% url 'order_list' %}">Заказы</a>
+  <a class="btn attention" href="{% url 'product_create' %}">Новый товар</a>
+</div>
+
+{% if user.is_superuser %}
+<div class="container my-4">
+  <form id="search-sort-filter" method="get">
+    {% csrf_token %}
+    {{ form.as_p }}
+  </form>
+</div>
+{% endif %}
+
+<div class="container my-4">
+  {% for article in object_list %}
+    <div class="card mb-3 border-attention">
+      <a href="{% url 'product_update' article.pk %}" class="stretched-link"></a>
+<!--      PKGH По цвету конфликт: скидка или количество. Приоритет
+отдан количеству на складе:
+если товара нет, скидка уже не так важна.-->
+      <div class="row g-0 {% if article.stock == 0 %}out-of-stock{% elif article.discount > 15 %}great-discount{% endif %}">
+        <!-- Левая колонка с фото -->
+        <div class="col-2 d-flex align-items-center justify-content-center p-3 inner-border">
+          <img src="{{ article.photo.url }}" class="img-fluid" style="max-width: 100px;" alt="{{ article.product_name }}">
+        </div>
+
+        <!-- Центральная колонка с описанием -->
+        <div class="col-8">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ article.product_category }} | {{ article.product_name }}
+            </h5>
+            <p class="card-text mb-1">Описание товара: {{ article.description }}</p>
+            <p class="card-text mb-1">Производитель: {{ article.manufacturer }}</p>
+            <p class="card-text mb-1">Поставщик: {{ article.supplier }}</p>
+            <p class="card-text mb-1">Цена: {{ article.get_price|safe }}</p>
+            <p class="card-text mb-1">Единица измерения: {{ article.unit_of_measurement }}</p>
+            <p class="card-text mb-1">Количество на складе: {{ article.stock }}</p>
+            <p class="card-text mb-0">
+              Id: {{ article.pk }}
+              {% if user.is_superuser %}
+                  <a class="ms-2 px-2 position-absolute z-3" href="{% url 'product_delete' article.pk %}" onclick="return confirm('Удалить?')">Удалить</a>
+              {% endif %}
+            </p>
+          </div>
+        </div>
+
+        <!-- Правая колонка (служебный блок) -->
+        <div class="col-2 p-3 text-center">
+            <p>Действуующая скидка:</p>
+            <p>{{ article.discount}} %</p>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js.js' %}"></script>
+{% endblock %}

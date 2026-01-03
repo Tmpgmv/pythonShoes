@@ -1,0 +1,25 @@
+.great-discount {
+    background-color: #2E8B57
+}
+
+.old-price {
+    color: red;
+    text-decoration: line-through;
+}
+
+.out-of-stock {
+    background-color: lightblue;
+}
+
+.aux-background {
+    background-color: #7FFF00;
+}
+
+.attention {
+    background-color: #00FA9A !important;
+}
+
+
+.border-attention {
+    border-color: #00FA9A !important;
+}

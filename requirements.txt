@@ -1,2 +1,7 @@
 Django==6.0
 django-plaintext-password==0.3.0
+pillow==12.0.0
+psycopg2==2.9.11
+django-bootstrap5==25.3
+django-resized==1.0.3
+django-cleanup==9.0.0

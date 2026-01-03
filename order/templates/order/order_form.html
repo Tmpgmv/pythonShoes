@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block h %}
+Создать/редактировать заказ
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <a class="btn attention" href="{% url 'order_list' %}">Назад</a>
+</div>
+
+
+<div class="container">
+    <form method="post" onsubmit="return confirm('Сохранить изменения?')">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td>
+                    <input type="submit" value="Сохранить">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{% endblock %}
