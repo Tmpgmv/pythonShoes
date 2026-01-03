@@ -10,7 +10,7 @@
 
     <div class="container my-4 px-0">
         <a class="btn attention" href="{% url 'product_list' %}">Назад</a>
-        {% if user.is_superuser %}
+        {% if user.is_admin %}
         <a class="btn attention" href="{% url 'order_create' %}">Новый заказ</a>
         {% endif %}
     </div>

@@ -4,11 +4,16 @@
 
 {% block content %}
 <div class="container my-4">
-  <a class="btn attention" href="{% url 'order_list' %}">Заказы</a>
-  <a class="btn attention" href="{% url 'product_create' %}">Новый товар</a>
+  {% if user.is_admin or user.is_manager %}
+    <a class="btn attention" href="{% url 'order_list' %}">Заказы</a>
+  {% endif %}
+
+  {% if user.is_admin %}
+    <a class="btn attention" href="{% url 'product_create' %}">Новый товар</a>
+  {% endif %}
 </div>
 
-{% if user.is_superuser %}
+{% if user.is_admin or user.is_manager %}
 <div class="container my-4">
   <form id="search-sort-filter" method="get">
     {% csrf_token %}

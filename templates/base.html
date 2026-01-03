@@ -16,7 +16,10 @@
                 <span class="ms-2 fs-1 fw-bold">ООО "Обувь"</span>
             </div>
             <div class="text-end">
-                    {{ user.get_full_name }}
+                <div>
+                    <p>{{ user.get_full_name }}</p>
+                    <p>{{ user.role }}</p>
+                </div>
                 {% if user.is_authenticated %}
                     <form action="{% url 'logout' %}" method="post">
                         {% csrf_token %}

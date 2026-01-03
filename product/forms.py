@@ -32,9 +32,13 @@ class SearchSortFilterForm(forms.Form):
         choices=CHOICES,
         initial='more',
         required=False,
+        label="Количество на складе"
     )
 
-    search = forms.CharField(required=False)
+    search = forms.CharField(required=False,
+                             label="Поиск")
 
     supplier = forms.ModelChoiceField(queryset=Company.objects.all(),
-                                      required=False)
+                                      empty_label="Все поставщики",
+                                      required=False,
+                                      label="Поставщик")

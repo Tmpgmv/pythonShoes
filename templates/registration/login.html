@@ -23,11 +23,11 @@
 
     </form>
 
-    <form action="{% url 'login' %}" method="post" >
+    <form class="my-3" action="{% url 'login' %}" method="post" >
         {% csrf_token %}
         <input type="hidden" name="username" value="g">
         <input type="hidden" name="password" value="g">
-        <input type="submit" class="btn btn-info" value="Гость"/>
+        <input type="submit" class="btn attention" value="Гость"/>
     </form>
 
 
