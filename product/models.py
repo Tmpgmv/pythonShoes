@@ -22,31 +22,43 @@ class Product(models.Model):
     PRODUCT_CATEGORY_CHOICES = [("Женская обувь", "Женская обувь"),
                                    ("Мужская обувь", "Мужская обувь")]
 
-    sku = models.CharField(max_length=120)
-    product_name = models.CharField(max_length=120, choices=PRODUCT_NAME_CHOICES)
-    unit_of_measurement = models.CharField(max_length=20, choices=UNIT_OF_MEASUREMENT_CHOICES)
+    sku = models.CharField(max_length=120,
+                           verbose_name="Артикул",)
+    product_name = models.CharField(max_length=120,
+                                    choices=PRODUCT_NAME_CHOICES,
+                                    verbose_name="Наименование товара",)
+    unit_of_measurement = models.CharField(max_length=20,
+                                           choices=UNIT_OF_MEASUREMENT_CHOICES,
+                                           verbose_name="Единица измерения",)
     price = models.DecimalField(max_digits=10,
                                 decimal_places=2,
-                                validators=[MinValueValidator(Decimal('0.01'))])
+                                validators=[MinValueValidator(Decimal('0.01'))],
+                                verbose_name="Цена",)
     supplier = models.ForeignKey(Company,
                                  on_delete=models.CASCADE,
                                  related_name="suppliers",
-                                 related_query_name="supplier")
+                                 related_query_name="supplier",
+                                 verbose_name="Поставщик",)
     manufacturer = models.ForeignKey(Company,
                                      on_delete=models.CASCADE,
                                      related_name="manufacturers",
-                                     related_query_name="manufacturer")
+                                     related_query_name="manufacturer",
+                                     verbose_name="Производитель",)
     product_category = models.CharField(max_length=20,
-                                        choices=PRODUCT_CATEGORY_CHOICES)
+                                        choices=PRODUCT_CATEGORY_CHOICES,
+                                        verbose_name="Категория",)
     discount = models.DecimalField(max_digits=10,
                                    decimal_places=2,
-                                   validators=[MinValueValidator(Decimal('0'))])
-    stock = models.PositiveIntegerField()
-    description = models.CharField(max_length=400)
+                                   validators=[MinValueValidator(Decimal('0'))],
+                                   verbose_name="Скидка",)
+    stock = models.PositiveIntegerField(verbose_name="Количество на складе")
+    description = models.CharField(max_length=400,
+                                   verbose_name="Описание")
     photo = ResizedImageField(
         size=[300, 200],
         null=True,
-        default='picture.png'
+        default='picture.png',
+        verbose_name="Изображение",
     )
 
 
@@ -63,4 +75,7 @@ class Product(models.Model):
         return result
 
     def __str__(self):
-        return self.product_name + ": " + self.description
+        return "" + str(self.pk) + ": " + self.product_name + ": " + self.description
+
+    class Meta:
+        verbose_name_plural = 'Товары'
