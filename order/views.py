@@ -16,14 +16,14 @@ class OrderListView(ListView):
 class OrderDeleteView(DeleteView):
     model = Order
     success_url = reverse_lazy('order_list')  # главная страница после удаления
-
-    # Против фреймворка. По умолчанию надо создать
-    # order_confirm_delete.html.
-    # Но это нарушает последовательный пользовательский интерфейс.
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.object.delete()
-        return HttpResponseRedirect(self.get_success_url())
+    #
+    # # Против фреймворка. По умолчанию надо создать
+    # # order_confirm_delete.html.
+    # # Но это нарушает последовательный пользовательский интерфейс.
+    # def get(self, request, *args, **kwargs):
+    #     self.object = self.get_object()
+    #     self.object.delete()
+    #     return HttpResponseRedirect(self.get_success_url())
 
 
 class OrderCreateView(CreateView):

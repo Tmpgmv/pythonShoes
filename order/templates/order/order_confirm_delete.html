@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load bootstrap_icons %}
+
+{% block title %}
+    {{ block.super }}: Удаление заказа
+{% endblock %}
+
+{% block content %}
+
+
+<div class=container>
+    <div>
+        {% bs_icon 'trash3-fill' color='red' size='2em' %}
+    </div>
+    <div>
+        <form method="post">{% csrf_token %}
+            <p>Удалить заз ка"{{ object }}"?</p>
+            {{ form }}
+            <input class="btn attention" type="submit" value="Да">
+            <a class="btn attention" href="{% url 'order_list' %}">Нет</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

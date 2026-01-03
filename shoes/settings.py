@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'jquery',
     'django_bootstrap5',
+    'django_bootstrap_icons',
     'office',
     'order',
     'company',

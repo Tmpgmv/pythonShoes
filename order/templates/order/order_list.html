@@ -28,8 +28,7 @@
                         <h5 class="card-title">
                             Id заказа: {{ article.pk }}
                             {% if user.is_superuser %}
-                            <a class="ms-2 px-3 position-absolute z-3" href="{% url 'order_delete' article.pk %}"
-                               onclick="return confirm('Удалить?')">Удалить</a>
+                                <a class="ms-2 px-3 position-absolute z-3" href="{% url 'order_delete' article.pk %}">Удалить</a>
                             {% endif %}
                         </h5>
                         <p class="card-text mb-1">Статус: {{ article.status }}</p>
@@ -47,9 +46,8 @@
             </div>
         </div>
     {% endfor %}
-
-
-
-
-</div>
 {% endblock %}
+
+
+
+
