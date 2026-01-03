@@ -1,3 +1,4 @@
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.views.generic.list import ListView
 from django.views.generic.edit import DeleteView, UpdateView
@@ -13,23 +14,19 @@ class OrderListView(ListView):
     model = Order
 
 
-class OrderDeleteView(DeleteView):
+class OrderDeleteView(SuccessMessageMixin,
+                      DeleteView):
     model = Order
-    success_url = reverse_lazy('order_list')  # главная страница после удаления
-    #
-    # # Против фреймворка. По умолчанию надо создать
-    # # order_confirm_delete.html.
-    # # Но это нарушает последовательный пользовательский интерфейс.
-    # def get(self, request, *args, **kwargs):
-    #     self.object = self.get_object()
-    #     self.object.delete()
-    #     return HttpResponseRedirect(self.get_success_url())
+    success_url = reverse_lazy('order_list')
+    success_message = "Заказ удален."
 
 
-class OrderCreateView(CreateView):
+
+class OrderCreateView(SuccessMessageMixin, CreateView):
     model = Order
     form_class = OrderForm
     success_url = reverse_lazy("order_list")
+    success_message = "Заказ добавлен."
 
     def form_valid(self, form):
         form.instance.user = self.request.user

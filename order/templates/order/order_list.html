@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
+{% load bootstrap_icons %}
 
 {% block h %}
 Заказы
 {% endblock %}
 
 {% block content %}
+
+{% include "message.html" %}
+
 <div class="container my-4">
 
     <div class="container my-4 px-0">
@@ -14,6 +18,7 @@
         <a class="btn attention" href="{% url 'order_create' %}">Новый заказ</a>
         {% endif %}
     </div>
+
 
 
 <!--    https://getbootstrap.com/docs/5.3/helpers/stretched-link/ -->
@@ -27,9 +32,10 @@
                     <div class="card-body">
                         <h5 class="card-title">
                             Id заказа: {{ article.pk }}
-                            {% if user.is_superuser %}
-                                <a class="ms-2 px-3 position-absolute z-3" href="{% url 'order_delete' article.pk %}">Удалить</a>
-                            {% endif %}
+<!--                            {% if user.is_superuser %}-->
+<!--                                <a class="ms-2 px-3 position-absolute z-3" href="{% url 'order_delete' article.pk %}">Удалить</a>-->
+<!--                            {% endif %}-->
+
                         </h5>
                         <p class="card-text mb-1">Статус: {{ article.status }}</p>
                         <p class="card-text mb-1">Адрес пункта выдачи: {{ article.office.address }}</p>
@@ -41,6 +47,12 @@
                     <div class="card-body">
                         <p>Дата доставки:</p>
                         <p>{{ article.delivery_date }}</p>
+                        {% if user.is_superuser %}
+                          <form action="{% url 'order_delete' article.pk %}">
+                            {% csrf_token %}
+                            <input type="submit" class="position-absolute z-3" value="Удалить"/>
+                          </form>
+                      {% endif %}
                     </div>
                 </div>
             </div>

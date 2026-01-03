@@ -1,0 +1,7 @@
+{% load bootstrap_icons %}
+
+{% for message in messages %}
+<div class="py-3 container message-{{message.tags}}">
+  <span>{% if message.tags == "error" %} {% bs_icon 'exclamation-octagon-fill' size='1.5em' color='red'%}{% else %}{% bs_icon 'hand-thumbs-up-fill' size='1.5em' color='#00FA9A'%}{% endif %}</span> <span class="ms-3 {{ message.tags }}">{{ message }}</span>
+</div>
+{% endfor %}

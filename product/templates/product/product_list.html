@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load django_bootstrap5 %}
+{% load bootstrap_icons %}
 
 {% block content %}
 <div class="container my-4">
@@ -12,6 +13,13 @@
     <a class="btn attention" href="{% url 'product_create' %}">Новый товар</a>
   {% endif %}
 </div>
+
+{% include "message.html" %}
+<!--{% for message in messages %}-->
+<!--<div class="py-3 container message-{{message.tags}}">-->
+<!--  <span>{% if message.tags == "error" %} {% bs_icon 'exclamation-octagon-fill' size='1.5em' color='red'%}{% else %}{% bs_icon 'hand-thumbs-up-fill' size='1.5em' color='#00FA9A'%}{% endif %}</span> <span class="ms-3 {{ message.tags }}">{{ message }}</span>-->
+<!--</div>-->
+<!--{% endfor %}-->
 
 {% if user.is_admin or user.is_manager %}
 <div class="container my-4">
@@ -49,9 +57,6 @@
             <p class="card-text mb-1">Количество на складе: {{ article.stock }}</p>
             <p class="card-text mb-0">
               Id: {{ article.pk }}
-              {% if user.is_superuser %}
-                  <a class="ms-2 px-2 position-absolute z-3" href="{% url 'product_delete' article.pk %}" onclick="return confirm('Удалить?')">Удалить</a>
-              {% endif %}
             </p>
           </div>
         </div>
@@ -60,6 +65,14 @@
         <div class="col-2 p-3 text-center">
             <p>Действуующая скидка:</p>
             <p>{{ article.discount}} %</p>
+                        {% if user.is_superuser %}
+                  <form action="{% url 'product_delete' article.pk %}">
+                    {% csrf_token %}
+<!--                    <a class="ms-2 px-2 position-absolute z-3" href="{% url 'product_delete' article.pk %}">Удалить</a>-->
+                    <input type="submit" class="position-absolute z-3" value="Удалить"/>
+                  </form>
+
+              {% endif %}
         </div>
       </div>
     </div>

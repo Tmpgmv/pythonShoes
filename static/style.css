@@ -23,3 +23,11 @@
 .border-attention {
     border-color: #00FA9A !important;
 }
+
+.message-error {
+    background-color: lightpink;
+}
+
+.message-success {
+    background-color: lightgreen;
+}

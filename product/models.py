@@ -1,7 +1,11 @@
 from decimal import Decimal, ROUND_HALF_UP
 
+from django.contrib import messages
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.db.models import ProtectedError
+from django.shortcuts import redirect
+from django.urls import reverse_lazy, reverse
 from django_resized import ResizedImageField
 
 from company.models import Company
@@ -76,6 +80,3 @@ class Product(models.Model):
 
     def __str__(self):
         return "" + str(self.pk) + ": " + self.product_name + ": " + self.description
-
-    class Meta:
-        verbose_name_plural = 'Товары'

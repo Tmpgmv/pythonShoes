@@ -1,15 +1,16 @@
-from django.db.models import Q
-from django.http import HttpResponseRedirect
-from django.urls import reverse_lazy
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q, ProtectedError
+from django.shortcuts import redirect
+from django.urls import reverse_lazy, reverse
 from django.views.generic.list import ListView
-
+from django.views.generic.edit import UpdateView
 from product.forms import ProductForm, SearchSortFilterForm
 from product.models import Product
 
 
 class ProductListView(ListView):
     model = Product
-
 
     def get_queryset(self):
         sort_by_stock = self.request.GET.get("stock", "more")
@@ -35,7 +36,7 @@ class ProductListView(ListView):
         return queryset
 
     def get_context_data(
-        self, *, object_list = ..., **kwargs
+            self, *, object_list=..., **kwargs
     ):
         context = super(ProductListView, self).get_context_data(**kwargs)
 
@@ -47,25 +48,34 @@ class ProductListView(ListView):
 from django.views.generic.edit import CreateView, DeleteView
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(SuccessMessageMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy("product_list")
+    success_message = "Товар успешно добавлен."
 
-class ProductDeleteView(DeleteView):
+
+
+
+class ProductDeleteView(SuccessMessageMixin,
+                        DeleteView):
     model = Product
     success_url = reverse_lazy('product_list')  # главная страница после удаления
+    success_message = "Товар успешно удален."
 
 
-    # Против фреймворка. По умолчанию надо создать
-    # order_confirm_delete.html.
-    # Но это нарушает последовательный пользовательский интерфейс.
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.object.delete()
-        return HttpResponseRedirect(self.get_success_url())
+    def post(self, request, *args, **kwargs):
+        try:
+            response = super().post(request, *args, **kwargs)
+            return response
+        except ProtectedError:
+            messages.error(request, "Товар, который присутствует в заказе, удалить нельзя.")
+            return redirect(reverse("product_list"))
 
-from django.views.generic.edit import UpdateView
+
+
+    class Meta:
+        verbose_name_plural = 'Товары'
 
 
 class ProductUpdateView(UpdateView):
