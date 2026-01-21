@@ -31,21 +31,64 @@
 {% endif %}
 
 <div class="container my-4">
-  {% for article in object_list %}
-    <div class="card mb-3 border-attention">
-      <a href="{% url 'product_update' article.pk %}" class="stretched-link"></a>
-<!--      PKGH По цвету конфликт: скидка или количество. Приоритет
-отдан количеству на складе:
-если товара нет, скидка уже не так важна.-->
-      <div class="row g-0 {% if article.stock == 0 %}out-of-stock{% elif article.discount > 15 %}great-discount{% endif %}">
-        <!-- Левая колонка с фото -->
-        <div class="col-2 d-flex align-items-center justify-content-center p-3 inner-border">
-          <img src="{{ article.photo.url }}" class="img-fluid" style="max-width: 100px;" alt="{{ article.product_name }}">
-        </div>
 
-        <!-- Центральная колонка с описанием -->
-        <div class="col-8">
-          <div class="card-body">
+  <table width="100%" cellpadding="2" cellspacing="0">
+
+
+    {% for article in object_list %}
+    <div>
+      <a href="{% url 'product_update' article.pk %}" class="stretched-link"></a>
+	<tr valign="top">
+		<td width="4%" style="border-top: 1px solid #00FA9A; border-bottom: none; border-left: 1px solid #00FA9A; border-right: none; padding-top: 0.02in; padding-bottom: 0in; padding-left: 0.02in; padding-right: 0in"><p>
+			<br/>
+
+			</p>
+		</td>
+		<td width="25%" style="border-top: 1px solid #00FA9A; border-bottom: none; border-left: none; border-right: none; padding-top: 0.02in; padding-bottom: 0in; padding-left: 0in; padding-right: 0in"><p>
+			<br/>
+
+			</p>
+		</td>
+		<td width="4%" style="border-top: 1px solid #00FA9A; border-bottom: none; border-left: none; border-right: none; padding-top: 0.02in; padding-bottom: 0in; padding-left: 0in; padding-right: 0in"><p>
+			<br/>
+
+			</p>
+		</td>
+		<td width="24%" style="border-top: 1px solid #00FA9A; border-bottom: none; border-left: none; border-right: none; padding-top: 0.02in; padding-bottom: 0in; padding-left: 0in; padding-right: 0in"><p>
+			<br/>
+
+			</p>
+		</td>
+		<td width="3%" style="border-top: 1px solid #00FA9A; border-bottom: none; border-left: none; border-right: none; padding-top: 0.02in; padding-bottom: 0in; padding-left: 0in; padding-right: 0in"><p>
+			<br/>
+
+			</p>
+		</td>
+		<td width="36%" style="border-top: 1px solid #00FA9A; border-bottom: none; border-left: none; border-right: none; padding-top: 0.02in; padding-bottom: 0in; padding-left: 0in; padding-right: 0in"><p>
+			<br/>
+
+			</p>
+		</td>
+		<td width="4%" style="border-top: 1px solid #00FA9A; border-bottom: none; border-left: none; border-right: 1px solid #00FA9A; padding-top: 0.02in; padding-bottom: 0in; padding-left: 0in; padding-right: 0.02in"><p>
+			<br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="4%" style="border-top: none; border-bottom: none; border-left: 1px solid #00FA9A; border-right: none; padding-top: 0in; padding-bottom: 0in; padding-left: 0.02in; padding-right: 0in"><p>
+			<br/>
+
+			</p>
+		</td>
+		<td class="align-middle" width="25%" style="border: 1px solid #00FA9A; padding: 0.02in"><p>
+          <img src="{{ article.photo.url }}" class="img-fluid" alt="{{ article.product_name }}">
+		</td>
+		<td width="4%" style="border: none; padding: 0in"><p><br/>
+
+			</p>
+		</td>
+		<td width="24%" style="border: 1px solid #00FA9A; padding: 0.02in"><p>
             <h5 class="card-title">
               {{ article.product_category }} | {{ article.product_name }}
             </h5>
@@ -58,25 +101,116 @@
             <p class="card-text mb-0">
               Id: {{ article.pk }}
             </p>
-          </div>
-        </div>
+        </td>
+		<td width="3%" style="border: none; padding: 0in"><p><br/>
 
-        <!-- Правая колонка (служебный блок) -->
-        <div class="col-2 p-3 text-center">
+			</p>
+		</td>
+		<td width="36%" style="border: 1px solid #00FA9A; padding: 0.02in"><p align="right">
             <p>Действуующая скидка:</p>
             <p>{{ article.discount}} %</p>
                         {% if user.is_superuser %}
                   <form action="{% url 'product_delete' article.pk %}">
                     {% csrf_token %}
-<!--                    <a class="ms-2 px-2 position-absolute z-3" href="{% url 'product_delete' article.pk %}">Удалить</a>-->
                     <input type="submit" class="position-absolute z-3" value="Удалить"/>
                   </form>
 
               {% endif %}
-        </div>
-      </div>
+		</td>
+		<td width="4%" style="border-top: none; border-bottom: none; border-left: none; border-right: 1px solid #00FA9A; padding-top: 0in; padding-bottom: 0in; padding-left: 0in; padding-right: 0.02in"><p>
+			<br/>
+
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="4%" style="border-top: none; border-bottom: 1px solid #00FA9A; border-left: 1px solid #00FA9A; border-right: none; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0.02in; padding-right: 0in"><p>
+			<br/>
+
+			</p>
+		</td>
+		<td width="25%" style="border-top: none; border-bottom: 1px solid #00FA9A; border-left: none; border-right: none; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0in"><p>
+			<br/>
+
+			</p>
+		</td>
+		<td width="4%" style="border-top: none; border-bottom: 1px solid #00FA9A; border-left: none; border-right: none; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0in"><p>
+			<br/>
+
+			</p>
+		</td>
+		<td width="24%" style="border-top: none; border-bottom: 1px solid #00FA9A; border-left: none; border-right: none; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0in"><p>
+			<br/>
+
+			</p>
+		</td>
+		<td width="3%" style="border-top: none; border-bottom: 1px solid #00FA9A; border-left: none; border-right: none; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0in"><p>
+			<br/>
+
+			</p>
+		</td>
+		<td width="36%" style="border-top: none; border-bottom: 1px solid #00FA9A; border-left: none; border-right: none; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0in"><p>
+			<br/>
+
+			</p>
+		</td>
+		<td width="4%" style="border-top: none; border-bottom: 1px solid #00FA9A; border-left: none; border-right: 1px solid #00FA9A; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in"><p>
+			<br/>
+
+			</p>
+		</td>
+	</tr>
     </div>
-  {% endfor %}
+    {% endfor %}
+</table>
+
+
+<!--  {% for article in object_list %}-->
+<!--    <div class="card mb-3 border-attention">-->
+<!--      <a href="{% url 'product_update' article.pk %}" class="stretched-link"></a>-->
+<!--&lt;!&ndash;      PKGH По цвету конфликт: скидка или количество. Приоритет-->
+<!--отдан количеству на складе:-->
+<!--если товара нет, скидка уже не так важна.&ndash;&gt;-->
+<!--      <div class="row g-0 {% if article.stock == 0 %}out-of-stock{% elif article.discount > 15 %}great-discount{% endif %}">-->
+<!--        &lt;!&ndash; Левая колонка с фото &ndash;&gt;-->
+<!--        <div class="col-2 d-flex align-items-center justify-content-center p-3 inner-border">-->
+<!--          <img src="{{ article.photo.url }}" class="img-fluid" style="max-width: 100px;" alt="{{ article.product_name }}">-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Центральная колонка с описанием &ndash;&gt;-->
+<!--        <div class="col-8">-->
+<!--          <div class="card-body">-->
+<!--            <h5 class="card-title">-->
+<!--              {{ article.product_category }} | {{ article.product_name }}-->
+<!--            </h5>-->
+<!--            <p class="card-text mb-1">Описание товара: {{ article.description }}</p>-->
+<!--            <p class="card-text mb-1">Производитель: {{ article.manufacturer }}</p>-->
+<!--            <p class="card-text mb-1">Поставщик: {{ article.supplier }}</p>-->
+<!--            <p class="card-text mb-1">Цена: {{ article.get_price|safe }}</p>-->
+<!--            <p class="card-text mb-1">Единица измерения: {{ article.unit_of_measurement }}</p>-->
+<!--            <p class="card-text mb-1">Количество на складе: {{ article.stock }}</p>-->
+<!--            <p class="card-text mb-0">-->
+<!--              Id: {{ article.pk }}-->
+<!--            </p>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Правая колонка (служебный блок) &ndash;&gt;-->
+<!--        <div class="col-2 p-3 text-center">-->
+<!--            <p>Действуующая скидка:</p>-->
+<!--            <p>{{ article.discount}} %</p>-->
+<!--                        {% if user.is_superuser %}-->
+<!--                  <form action="{% url 'product_delete' article.pk %}">-->
+<!--                    {% csrf_token %}-->
+<!--&lt;!&ndash;                    <a class="ms-2 px-2 position-absolute z-3" href="{% url 'product_delete' article.pk %}">Удалить</a>&ndash;&gt;-->
+<!--                    <input type="submit" class="position-absolute z-3" value="Удалить"/>-->
+<!--                  </form>-->
+
+<!--              {% endif %}-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  {% endfor %}-->
 </div>
 <script src="{% static 'js/jquery.js' %}"></script>
 <script src="{% static 'js.js' %}"></script>
