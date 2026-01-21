@@ -36,7 +36,7 @@
 
 
     {% for article in object_list %}
-    <div>
+    <tbody class="{% if article.stock == 0 %}out-of-stock{% elif article.discount > 15 %}great-discount{% endif %}">
       <a href="{% url 'product_update' article.pk %}" class="stretched-link"></a>
 	<tr valign="top">
 		<td width="4%" style="border-top: 1px solid #00FA9A; border-bottom: none; border-left: 1px solid #00FA9A; border-right: none; padding-top: 0.02in; padding-bottom: 0in; padding-left: 0.02in; padding-right: 0in"><p>
@@ -160,7 +160,7 @@
 			</p>
 		</td>
 	</tr>
-    </div>
+    </tbody>
     {% endfor %}
 </table>
 
