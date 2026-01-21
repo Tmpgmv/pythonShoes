@@ -38,6 +38,7 @@ class Product(models.Model):
                                 decimal_places=2,
                                 validators=[MinValueValidator(Decimal('0.01'))],
                                 verbose_name="Цена",)
+
     supplier = models.ForeignKey(Company,
                                  on_delete=models.CASCADE,
                                  related_name="suppliers",
