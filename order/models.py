@@ -23,7 +23,7 @@ class Order(models.Model):
                                verbose_name="Код получения")
     status = models.CharField(max_length=10,
                               choices=STATUSES,
-                              default='илНовый',
+                              default='Новый',
                               verbose_name="Статус")
 
     def save(self, *args, **kwargs):
